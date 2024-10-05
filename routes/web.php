@@ -16,7 +16,9 @@ use App\Http\Controllers\ProfileController;
 |
 */
 
-Route::get('/', HomeController::class);
+Route::get('/', HomeController::class)->middleware('throttle:watch_limiter')->name('Gheit Route');
+
+// Route::get('/users/{id}/{name}', HomeController::class)->whereNumber('id')->whereAlpha('name'); // better to but it as a golobal constrain in RouteServiceProvider 
 
 
 Route::prefix('dashboard')->group(function () {
@@ -30,6 +32,10 @@ Route::prefix('dashboard')->group(function () {
 });
 
 
+Route::fallback(function(){
+    // echo 'this is a fallback function';
+    return to_route('Gheit Route');
+});
 
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -38,3 +44,6 @@ Route::prefix('dashboard')->group(function () {
 // });
 
 // require __DIR__.'/auth.php';
+
+// require __DIR__.'/admins.php';
+// require __DIR__.'/merchant.php';
