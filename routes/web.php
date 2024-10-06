@@ -16,7 +16,8 @@ use App\Http\Controllers\ProfileController;
 |
 */
 
-Route::get('/', HomeController::class)->middleware('throttle:watch_limiter')->name('Gheit Route');
+Route::get('/', HomeController::class)->name('Gheit Route');
+// Route::get('/', HomeController::class)->middleware('throttle:watch_limiter')->name('Gheit Route');
 
 // Route::get('/users/{id}/{name}', HomeController::class)->whereNumber('id')->whereAlpha('name'); // better to but it as a golobal constrain in RouteServiceProvider 
 
@@ -27,7 +28,10 @@ Route::prefix('dashboard')->group(function () {
     Route::view('/', 'dashboard')->name('dashboard');
 
     // ============================================= products
-    Route::resource('products', ProductController::class);
+    // Route::get('products/show/{product:name}', [ProductController::class, 'show'])->name('products.show');
+    // Route::resource('products', ProductController::class)->except('show')->parameters(['products' => 'product:name']);
+    Route::get('products/show/{product}', [ProductController::class, 'show'])->name('products.show');
+    Route::resource('products', ProductController::class)->except('show');
 
 });
 

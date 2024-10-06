@@ -38,8 +38,13 @@
                                         </td>
                                         <td>
                                             <div class="d-inline-flex">
+                                                {{-- @php
+                                                    $slug = Illuminate\Support\Str::slug($product->name, '-');
+                                                @endphp --}}
                                                 <a href="{{ route('products.edit', $product) }}"
                                                     class="btn btn-primary me-2">Edit</a>
+                                                <a href="{{ route('products.show', $product) }}"
+                                                    class="btn btn-warning me-2">Show</a>
                                                 <form action="{{ route('products.destroy', $product) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
