@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UplodeImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,10 +23,11 @@ Route::get('/', HomeController::class)->name('Gheit Route');
 // Route::get('/users/{id}/{name}', HomeController::class)->whereNumber('id')->whereAlpha('name'); // better to but it as a golobal constrain in RouteServiceProvider 
 
 
-Route::prefix('dashboard')->group(function () {
+Route::prefix('dashboard')->middleware('auth')->group(function () {
 
     // ==================================== dashboard main page
-    Route::view('/', 'dashboard')->name('dashboard');
+    // Route::view('/', 'dashboard')->name('dashboard');
+    Route::view('/', 'dashboard')->name('dashboard')->withoutMiddleware('auth');
 
     // ============================================= products
     // Route::get('products/show/{product:name}', [ProductController::class, 'show'])->name('products.show');
@@ -34,6 +36,7 @@ Route::prefix('dashboard')->group(function () {
     Route::resource('products', ProductController::class)->except('show');
 
 });
+
 
 
 Route::fallback(function(){
@@ -47,7 +50,10 @@ Route::fallback(function(){
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-// require __DIR__.'/auth.php';
+Route::post('/upload', [UplodeImageController::class, 'upload'])->name('update');
+Route::get('/upload', [UplodeImageController::class, 'index']);
+
+require __DIR__.'/auth.php';
 
 // require __DIR__.'/admins.php';
 // require __DIR__.'/merchant.php';
