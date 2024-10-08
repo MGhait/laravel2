@@ -23,11 +23,14 @@ Route::get('/', HomeController::class)->name('Gheit Route');
 // Route::get('/users/{id}/{name}', HomeController::class)->whereNumber('id')->whereAlpha('name'); // better to but it as a golobal constrain in RouteServiceProvider 
 
 
-Route::prefix('dashboard')->middleware('auth')->group(function () {
+// Route::prefix('dashboard')->middleware('auth')->group(function () {
+Route::prefix('dashboard')->group(function () {
 
     // ==================================== dashboard main page
-    // Route::view('/', 'dashboard')->name('dashboard');
-    Route::view('/', 'dashboard')->name('dashboard')->withoutMiddleware('auth');
+    Route::view('/', 'dashboard')->name('dashboard');
+    // Route::view('/', 'dashboard')->name('dashboard')->withoutMiddleware('auth');
+    // to pass prameter to the middleware 'middlewareName:parameter'
+    // Route::view('/', 'dashboard')->middleware('test:mohamed,ahmed,mahmoud')->name('dashboard');
 
     // ============================================= products
     // Route::get('products/show/{product:name}', [ProductController::class, 'show'])->name('products.show');
@@ -50,8 +53,9 @@ Route::fallback(function(){
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-Route::post('/upload', [UplodeImageController::class, 'upload'])->name('update');
-Route::get('/upload', [UplodeImageController::class, 'index']);
+// demo for graduation project
+// Route::post('/upload', [UplodeImageController::class, 'upload'])->name('update');
+// Route::get('/upload', [UplodeImageController::class, 'index']);
 
 require __DIR__.'/auth.php';
 
