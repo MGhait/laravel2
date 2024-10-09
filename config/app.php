@@ -168,6 +168,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\TestServiceProvider::class, // to load before routes 
+        App\Providers\SettingsTestProvider::class, 
         App\Providers\RouteServiceProvider::class,
     ])->toArray(),
 
