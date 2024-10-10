@@ -4,6 +4,7 @@
             {{ __('Products') }}
         </h2>
         {{-- @dump($settings) --}}
+        {{-- <x-button-component></x-button-component> --}}
     </x-slot>
 
     <div class="py-12">

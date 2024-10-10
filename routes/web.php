@@ -23,8 +23,8 @@ Route::get('/', HomeController::class)->name('Gheit Route');
 // Route::get('/users/{id}/{name}', HomeController::class)->whereNumber('id')->whereAlpha('name'); // better to but it as a golobal constrain in RouteServiceProvider 
 
 
-Route::prefix('dashboard')->middleware('auth')->group(function () {
-// Route::prefix('dashboard')->group(function () {
+// Route::prefix('dashboard')->middleware('auth')->group(function () {
+Route::prefix('dashboard')->group(function () {
 
     // ==================================== dashboard main page
     Route::view('/', 'dashboard')->name('dashboard');
