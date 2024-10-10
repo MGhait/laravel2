@@ -18,7 +18,10 @@
                                 <x-label for="name" :value="__('Name')" />
 
                                 <x-input id="name" class="block mt-1 w-full" type="text" name="name"
-                                    :value="old('name')" required autofocus />
+                                    :value="old('name')" autofocus />
+                                @error('name')
+                                    <span style="color: red">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <!-- Price -->
@@ -26,7 +29,10 @@
                                 <x-label for="price" :value="__('Price')" />
 
                                 <x-input id="price" class="block mt-1 w-full" type="number" step="0.01"
-                                    name="price" :value="old('price')" required />
+                                    name="price" :value="old('price')" />
+                                @error('price')
+                                    <span style="color: red">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <div class="flex items-center mt-4">

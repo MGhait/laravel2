@@ -13,12 +13,23 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('keywords.dashboard') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
-                        {{ __('Products') }}
+                        {{ __('keywords.products') }}
+                    </x-nav-link>
+                </div>
+                
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    @php
+                        $route = Route::currentRouteName();
+                        $lang = request()->segment(1) == 'ar' ? 'en' : 'ar';
+                    @endphp
+                    <x-nav-link href="{{ route($route, ['locale' => $lang]) }}">
+                        {{-- {{ request()->segment(1) == 'ar' ? 'EN' : 'AR'}} --}}
+                        {{ strtoupper($lang) }}
                     </x-nav-link>
                 </div>
             </div>

@@ -24,8 +24,8 @@ Route::get('/', HomeController::class)->name('Gheit Route');
 
 
 // Route::prefix('dashboard')->middleware('auth')->group(function () {
-Route::prefix('dashboard')->group(function () {
-
+Route::prefix('{locale}/dashboard')->middleware('locale')->group(function () {
+    // dd(request()->segment(1));
     // ==================================== dashboard main page
     Route::view('/', 'dashboard')->name('dashboard');
     // Route::view('/', 'dashboard')->name('dashboard')->withoutMiddleware('auth');
@@ -38,7 +38,7 @@ Route::prefix('dashboard')->group(function () {
     Route::get('products/show/{product}', [ProductController::class, 'show'])->name('products.show');
     Route::resource('products', ProductController::class)->except('show');
 
-});
+})->where('locale', '[a-z](2)');
 
 
 
