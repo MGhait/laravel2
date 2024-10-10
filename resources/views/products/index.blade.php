@@ -23,7 +23,7 @@
                                     </th>
                                     <th>
                                         <span
-                                            class="text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">{{ __('keywords.price') }}</span>
+                                            class="text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">{{ __('keywords.price') }} ({!! printCurrency('le') !!}) </span>
                                     </th>
                                     <th width="20%"></th>
                                 </tr>

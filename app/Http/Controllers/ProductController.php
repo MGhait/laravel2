@@ -12,11 +12,11 @@ class ProductController extends Controller
 {
     // same thing using trait and service
     // use PriceTrait;
-    protected $priceService;
+    // protected $priceService;
 
-    public function __construct(PriceService $priceService) {
-        $this->priceService = $priceService;
-    }
+    // public function __construct(PriceService $priceService) {
+    //     $this->priceService = $priceService;
+    // }
 
     public function index()
     {
@@ -48,7 +48,9 @@ class ProductController extends Controller
         //using trait
         // $productData['price_usd'] = $this->convertPriceToUSD($productData['price']);
         //using service
-        $productData['price_usd'] = $this->priceService->convertPriceToUSD($productData['price']);
+        // $productData['price_usd'] = $this->priceService->convertPriceToUSD($productData['price']);
+        // using helper function
+        $productData['price_usd'] = convertPriceToUSD($productData['price']);
         // dd($productData);   
         $product = Product::create($productData);
 
