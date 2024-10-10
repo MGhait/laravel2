@@ -5,11 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Support\Str;
 use App\Http\Requests\ProductRequest;
+use App\Services\PriceService;
 use App\Traits\PriceTrait;
 
 class ProductController extends Controller
 {
-    use PriceTrait;
+    // same thing using trait and service
+    // use PriceTrait;
+    protected $priceService;
+
+    public function __construct(PriceService $priceService) {
+        $this->priceService = $priceService;
+    }
+
     public function index()
     {
         $products = Product::paginate(10);
@@ -37,8 +45,11 @@ class ProductController extends Controller
     {
         $productData = $request->validated();
         // $productData['slug'] = Str::slug($productData['name'], '-');
-        $productData['price_usd'] = $this->convertPriceToUSD($productData['price']);
-        // dd($productData);
+        //using trait
+        // $productData['price_usd'] = $this->convertPriceToUSD($productData['price']);
+        //using service
+        $productData['price_usd'] = $this->priceService->convertPriceToUSD($productData['price']);
+        // dd($productData);   
         $product = Product::create($productData);
 
         return redirect()->route('products.index');
