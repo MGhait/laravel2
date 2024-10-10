@@ -24,12 +24,32 @@ Route::get('/', HomeController::class)->name('Gheit Route');
 // Route::get('/users/{id}/{name}', HomeController::class)->whereNumber('id')->whereAlpha('name'); // better to but it as a golobal constrain in RouteServiceProvider 
 
 
+    // mcamara pakage for localization
+    // you can make it from routeServiceProvider once for all your web routes [BEST PRACTICE]
+    // Route::group(
+    //     [
+    //         'prefix' => LaravelLocalization::setLocale() . '/dashboard',
+    //         'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    //     ], function(){
+    //     // dd(request()->segment(1));
+    //     // ==================================== dashboard main page
+    //     Route::view('/', 'dashboard')->name('dashboard');
+    //     // Route::view('/', 'dashboard')->name('dashboard')->withoutMiddleware('auth');
+    //     // to pass prameter to the middleware 'middlewareName:parameter'
+    //     // Route::view('/', 'dashboard')->middleware('test:mohamed,ahmed,mahmoud')->name('dashboard');
+
+    //     // ============================================= products
+    //     // Route::get('products/show/{product:name}', [ProductController::class, 'show'])->name('products.show');
+    //     // Route::resource('products', ProductController::class)->except('show')->parameters(['products' => 'product:name']);
+    //     Route::get('products/show/{product}', [ProductController::class, 'show'])->name('products.show');
+    //     Route::resource('products', ProductController::class)->except('show');
+
+    // });
+
+
+
 // Route::prefix('dashboard')->middleware('auth')->group(function () {
-    Route::group(
-        [
-            'prefix' => LaravelLocalization::setLocale() . '/dashboard',
-            'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
-        ], function(){
+Route::prefix('dashboard')->group(function () {
     // dd(request()->segment(1));
     // ==================================== dashboard main page
     Route::view('/', 'dashboard')->name('dashboard');
@@ -44,7 +64,6 @@ Route::get('/', HomeController::class)->name('Gheit Route');
     Route::resource('products', ProductController::class)->except('show');
 
 });
-
 
 // Manual Localizaion 
 // // Route::prefix('dashboard')->middleware('auth')->group(function () {
