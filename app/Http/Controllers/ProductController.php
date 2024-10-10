@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Support\Str;
 use App\Http\Requests\ProductRequest;
+use App\Traits\PriceTrait;
 
 class ProductController extends Controller
 {
+    use PriceTrait;
     public function index()
     {
         $products = Product::paginate(10);
@@ -35,6 +37,8 @@ class ProductController extends Controller
     {
         $productData = $request->validated();
         // $productData['slug'] = Str::slug($productData['name'], '-');
+        $productData['price_usd'] = $this->convertPriceToUSD($productData['price']);
+        // dd($productData);
         $product = Product::create($productData);
 
         return redirect()->route('products.index');
