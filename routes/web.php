@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UplodeImageController;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,11 @@ Route::get('/', HomeController::class)->name('Gheit Route');
 
 
 // Route::prefix('dashboard')->middleware('auth')->group(function () {
-Route::prefix('{locale}/dashboard')->middleware('locale')->group(function () {
+    Route::group(
+        [
+            'prefix' => LaravelLocalization::setLocale() . '/dashboard',
+            'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+        ], function(){
     // dd(request()->segment(1));
     // ==================================== dashboard main page
     Route::view('/', 'dashboard')->name('dashboard');
@@ -38,7 +43,26 @@ Route::prefix('{locale}/dashboard')->middleware('locale')->group(function () {
     Route::get('products/show/{product}', [ProductController::class, 'show'])->name('products.show');
     Route::resource('products', ProductController::class)->except('show');
 
-})->where('locale', '[a-z](2)');
+});
+
+
+// Manual Localizaion 
+// // Route::prefix('dashboard')->middleware('auth')->group(function () {
+// Route::prefix('{locale}/dashboard')->middleware('locale')->group(function () {
+//     // dd(request()->segment(1));
+//     // ==================================== dashboard main page
+//     Route::view('/', 'dashboard')->name('dashboard');
+//     // Route::view('/', 'dashboard')->name('dashboard')->withoutMiddleware('auth');
+//     // to pass prameter to the middleware 'middlewareName:parameter'
+//     // Route::view('/', 'dashboard')->middleware('test:mohamed,ahmed,mahmoud')->name('dashboard');
+
+//     // ============================================= products
+//     // Route::get('products/show/{product:name}', [ProductController::class, 'show'])->name('products.show');
+//     // Route::resource('products', ProductController::class)->except('show')->parameters(['products' => 'product:name']);
+//     Route::get('products/show/{product}', [ProductController::class, 'show'])->name('products.show');
+//     Route::resource('products', ProductController::class)->except('show');
+
+// })->where('locale', '[a-z](2)');
 
 
 

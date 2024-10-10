@@ -22,16 +22,43 @@
                     </x-nav-link>
                 </div>
                 
+                {{-- using mcamara pakage --}}
+                {{-- get all supported lang in ul --}}
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <ul>
+                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                        <li>
+                            <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                {{ $properties['native'] }}
+                            </a>
+                        </li>
+                        @endforeach
+                    </ul>    
+                </div>  --}}
+                
+                {{-- using mcamara pakage --}}
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     @php
-                        $route = Route::currentRouteName();
                         $lang = request()->segment(1) == 'ar' ? 'en' : 'ar';
                     @endphp
-                    <x-nav-link href="{{ route($route, ['locale' => $lang]) }}">
+                    <x-nav-link href="{{ LaravelLocalization::getLocalizedURL($lang) }}">
                         {{-- {{ request()->segment(1) == 'ar' ? 'EN' : 'AR'}} --}}
                         {{ strtoupper($lang) }}
                     </x-nav-link>
                 </div>
+                
+                {{-- manual localization --}}
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    @php
+                        $route = Illuminate\Support\Facades\Route::currentRouteName();
+                        $lang = request()->segment(1) == 'ar' ? 'en' : 'ar';
+                    @endphp
+                    <x-nav-link href="{{ route($route, ['locale' => $lang]) }}"> --}}
+                        {{-- {{ request()->segment(1) == 'ar' ? 'EN' : 'AR'}} --}}
+                        {{-- {{ strtoupper($lang) }} --}}
+                    {{-- </x-nav-link>
+                </div> --}}
+                
             </div>
 
         </div>
